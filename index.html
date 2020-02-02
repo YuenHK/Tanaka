@@ -117,18 +117,22 @@
         if(user.email.indexOf("@tkpss.edu.hk") >= 0){
           CloseLoginAlert();
           var ref = db.collection("Setting").doc("Authority").collection("Detail");
+          var auth = 0;
           ref.onSnapshot(querySnapshot => {
             querySnapshot.forEach(doc => {
               if(user.email == doc.data().Email){
                 console.log("Admin Permission");
-                document.location.href="home_admin.html";
+                auth = 1;
               } else {
                 console.log("User Permission")
-                document.location.href="home.html";
-              }              
+              };             
             });
+            if(auth == 1){
+              document.location.href="home_admin.html";
+            } else {
+              document.location.href="home.html";
+            };
           });
-
         } else {
           var r = confirm(user.email + " 為非授權帳户，請再次檢查。");
           if(r == true){
