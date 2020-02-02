@@ -1,37 +1,31 @@
-## Welcome to GitHub Pages
+## 什麼是Tanaka?
 
-You can use the [editor on GitHub](https://github.com/YuenHK/Tanaka/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+[Tanaka](https://yuenhk.github.io/Tanaka)(日文音譯：田中)是一個維修記錄工具，用於回報和管理組織內一切維修項目。
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+### 功能
 
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+Tanaka分為使用者和管理員兩種權限，功能上各有不同。
 
 ```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+# 使用者
+- 回報新事項
+- 查看自己的回報事項
 
-- Bulleted
-- List
+## 管理員
+- 回報新事項
+- 查看全部回報事項
+- 修改及刪除回報事項
+- 修改及刪除維修項目
+- 修改及刪除建築地點
+- 修改及刪除管理員
+- 匯出Excel
 
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### 技術細節
 
-### Jekyll Themes
+Cloud Firestore [Firebase](https://firebase.google.com/)   
+Material design [Material Design Lite](https://getmdl.io/) [MDUI](https://github.com/zdhxiong/mdui)  
+jQuery [Table2Excel](https://github.com/rainabba/jquery-table2excel)  
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/YuenHK/Tanaka/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
