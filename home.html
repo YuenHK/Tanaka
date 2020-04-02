@@ -296,13 +296,14 @@
       var inputItemNameLocation = document.getElementById("ItemNameLocation");
       var inputItemNameLocationStr = inputItemNameLocation.options[inputItemNameLocation.selectedIndex].value;
       var inputRemark = document.getElementById("Remark").value;
-      var Time = new Date().toUTCString();
+      var Time = new Date();
+      var TimeToString = Time.toString();
 
       // Add Case To DB
       if(inputItemNameITStr != "0" && inputItemNameLocationStr != "0") {
 
-        db.collection("Case").doc(Time).set({
-        StartTimestamp: Time,  
+        db.collection("Case").doc(Time.toString()).set({
+        StartTimestamp: TimeToString, 
         EndTimestamp: "", 
         Reporter: profile_displayName,
         Type: inputTypeStr,
@@ -314,7 +315,7 @@
       })
       .then(function(docRef) {
         ReadCaseList(profile_displayName);
-        console.log("Add Data Successful| "+"StartTimestamp: "+firebase.firestore.FieldValue.serverTimestamp()+
+        console.log("Add Data Successful| "+"StartTimestamp: "+Time+
                     " Reporter: "+profile_displayName+" EndTimestamp: " +null+
                     " Type: "+inputTypeStr+" Level: "+inputItemLevelITStr+
                     " Name: "+inputItemNameITStr+" Location: "+inputItemNameLocationStr+
