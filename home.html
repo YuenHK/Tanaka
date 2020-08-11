@@ -464,6 +464,8 @@
         var timeToString;
         querySnapshot.forEach(doc => {
           console.log(doc);
+          var cutStartTimestamp = doc.data().StartTimestamp.substring(0,doc.data().StartTimestamp.search("GMT")-1);
+          var cutEndTimestamp = doc.data().EndTimestamp.substring(0,doc.data().EndTimestamp.search("GMT")-1);
           if (doc.data().Type == 0){
             html = html + '<tr><td>電子設備</td>';
           } else if (doc.data().Type == 1){
@@ -485,7 +487,7 @@
             html = html + '<td>已完成</td>';
           }
           html = html + '<td>' + doc.data().Reporter + '</td>';
-          html = html + '<td>' + doc.data().StartTimestamp  + '</td><td>' + doc.data().EndTimestamp + '</td>';
+          html = html + '<td>' + cutStartTimestamp  + '</td><td>' + cutEndTimestamp + '</td>';
           html = html + '<td>' + doc.data().Remark + '</td></tr>';
           console.log(doc.data().Name);
         });
