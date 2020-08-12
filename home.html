@@ -302,41 +302,49 @@
       // Add Case To DB
       if(inputItemNameITStr != "0" && inputItemNameLocationStr != "0") {
 
-        db.collection("Case").doc(Time.toString()).set({
-        StartTimestamp: TimeToString, 
-        EndTimestamp: "", 
-        Reporter: profile_displayName,
-        Type: inputTypeStr,
-        Level: inputItemLevelITStr,
-        Name: inputItemNameITStr,
-        Location: inputItemNameLocationStr,
-        State: 0,
-        Remark: inputRemark
-      })
-      .then(function(docRef) {
-        ReadCaseList(profile_displayName);
-        console.log("Add Data Successful| "+"StartTimestamp: "+Time+
-                    " Reporter: "+profile_displayName+" EndTimestamp: " +null+
-                    " Type: "+inputTypeStr+" Level: "+inputItemLevelITStr+
-                    " Name: "+inputItemNameITStr+" Location: "+inputItemNameLocationStr+
-                    " State: "+0 +" Remark: " + inputRemark);     
-        mdui.snackbar({
-          message: '項目增加成功',
-          position: 'bottom',
-          timeout: 3000
-        });
-        
-      })
-      .catch(function(error) {
-        console.error("Error adding document: ", error);
-        mdui.snackbar({
-          message: '項目增加失敗',
-          position: 'bottom',
-          timeout: 3000
-        });
-      });
-      
-      } 
+if(checkLocation(inputItemNameITStr, inputItemNameLocationStr)==1){
+
+  db.collection("Case").doc(Time.toString()).set({
+StartTimestamp: TimeToString, 
+EndTimestamp: "", 
+Reporter: profile_displayName,
+Type: inputTypeStr,
+Level: inputItemLevelITStr,
+Name: inputItemNameITStr,
+Location: inputItemNameLocationStr,
+State: 0,
+Remark: inputRemark
+})
+.then(function(docRef) {
+ReadCaseList(profile_displayName);
+console.log("Add Data Successful| "+"StartTimestamp: "+Time+
+            " Reporter: "+profile_displayName+" EndTimestamp: " +null+
+            " Type: "+inputTypeStr+" Level: "+inputItemLevelITStr+
+            " Name: "+inputItemNameITStr+" Location: "+inputItemNameLocationStr+
+            " State: "+0 +" Remark: " + inputRemark);     
+mdui.snackbar({
+  message: '項目增加成功',
+  position: 'bottom',
+  timeout: 3000
+});
+
+})
+.catch(function(error) {
+console.error("Error adding document: ", error);
+mdui.snackbar({
+  message: '項目增加失敗',
+  position: 'bottom',
+  timeout: 3000
+});
+});
+
+
+
+} else {
+  alert("此設施沒有在該地點安裝，請再次檢查。\n如有特別情況，可選擇[其他]。")
+};
+
+} 
 
     };
 
