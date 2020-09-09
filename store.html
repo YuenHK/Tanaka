@@ -105,43 +105,6 @@
       </main>
       <!-- End Top Card -->
 
-      <!-- Add Case -->
-      <main class="demo-cards mdl-color--grey-100 ">
-        <div class="mdl-grid demo-content">
-          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-
-            <form action="#" class="mdui-container mdui-col-xs-12 mdui-col-xs-12 mdui-theme-primary-indigo mdui-theme-accent-pink">
-
-<div class="mdui-container">
-  <div class="mdui-textfield">
-    <label class="mdui-textfield-label">ID</label>
-    <input class="mdui-textfield-input" type="text" name="uid" id="uid"/>
-  </div>
-  <div class="mdui-textfield">
-    <label class="mdui-textfield-label">購買日期</label>
-    <input class="mdui-textfield-input" type="date" name="buydate" id="buydate"/>
-  </div>
-  <div class="mdui-textfield mdui-textfield-floating-label">
-    <label class="mdui-textfield-label">內容</label>
-    <textarea class="mdui-textfield-input" name="detail" id="detail">處理器 主機板 記憶體 儲存設備 顯示咭</textarea>
-  </div>
-
-  <div class="mdui-row-xs-1">
-    <div class="mdui-textfield">
-      <button type="button" class="mdui-container mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-col-xs-12" onclick="addCase()">提交</button>    
-    </div>
-  </div>
-</div>
-
-            </form>
-            
-            <div class="demo-separator mdl-cell--1-col"></div>
-          </div>
-          
-        </div>
-      </main>
-      <!-- End Add Case -->
-
 
       <!-- Item List -->
       <main class="demo-cards mdl-color--grey-100 ">
@@ -167,7 +130,46 @@
         <!-- End Item List -->
 
         <!-- Low Right Button -->
-        <button class="mdui-fab mdui-fab-fixed mdui-ripple" onclick="table2excel()"><i class="mdui-icon material-icons">file_download</i></button>
+        <div class="mdui-fab-wrapper" mdui-fab="{trigger: 'hover'}" id="exampleFab">
+          <button class="mdui-fab mdui-ripple mdui-color-theme-accent">
+            <i class="mdui-icon material-icons" onclick="ShowAddAlert()">add</i>
+            <i class="mdui-icon mdui-fab-opened material-icons" onclick="ShowAddAlert()">add</i>
+          </button>
+          <div class="mdui-fab-dial">
+            <button class="mdui-fab mdui-fab-mini mdui-ripple" onclick="table2excel()"><i class="mdui-icon material-icons">file_download</i></button>
+          </div>
+        </div>
+        
+      <!-- Add Box -->
+      <div class="mdui-container">
+        <div class="mdui-dialog" id="Adddialog" >
+          <div class="mdui-dialog-title">新增庫存</div>
+          <div class="mdui-dialog-content">
+            
+            <div class="mdui-textfield">
+              <label class="mdui-textfield-label">ID</label>
+              <input class="mdui-textfield-input" type="text" name="uid" id="uid"/>
+            </div>
+            <div class="mdui-textfield">
+              <label class="mdui-textfield-label">購買日期</label>
+              <input class="mdui-textfield-input" type="date" name="buydate" id="buydate"/>
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+              <label class="mdui-textfield-label">內容</label>
+              <textarea class="mdui-textfield-input" name="detail" id="detail">處理器 主機板 記憶體 儲存設備 顯示咭</textarea>
+            </div>
+          
+            <div class="mdui-row-xs-1">
+              <div class="mdui-textfield">
+                <button type="button" class="mdui-container mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent mdui-col-xs-12 mdui-color-pink-400" onclick="addCase()">提交</button>    
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+      <!-- End Add Box -->
 
       <!-- About Box -->
       <div class="mdui-container">
@@ -297,13 +299,14 @@
 var instLogin = new mdui.Dialog('#Logindialog');
 var instAbout = new mdui.Dialog('#Aboutdialog');
 var instDelete = new mdui.Dialog('#deletelog');
+var instAdd = new mdui.Dialog('#Adddialog');
 
 // method for Open Delete AlertBox
 function ShowDeleteAlert(myObj){
   var html;
   var article = document.querySelector('#'+myObj.id);
   html = "你選擇了【 ID : " + myObj.id + "】;  請按修改或刪除，也可以按取消退出";
-  html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">ID</label><input class="mdui-textfield-input" type="text" name="edit_uid" id="edit_uid" value='+myObj.id+'></div>';
+  html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">ID</label><input class="mdui-textfield-input" type="text" name="edit_uid" id="edit_uid" value='+myObj.id+' disabled="disabled"></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">購買日期</label><input class="mdui-textfield-input" type="date" name="edit_buydate" id="edit_buydate" value='+article.dataset.buydate+'></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">維修日期</label><input class="mdui-textfield-input" type="date" name="edit_renewdate" id="edit_renewdate" value='+article.dataset.renewdate+'></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">內容</label><textarea class="mdui-textfield-input" name="edit_detail" id="edit_detail">'+article.dataset.detail+'</textarea></div>';
@@ -312,6 +315,11 @@ function ShowDeleteAlert(myObj){
   document.getElementById("ShowDeleteAlertText").innerHTML = html;
   document.getElementById("AlertDelete").setAttribute("name", myObj.name);
   instDelete.open();
+}
+
+// method for Open About AlertBox 
+function ShowAddAlert(){
+  instAdd.open();
 }
 
 // method for Open About AlertBox 
@@ -434,7 +442,7 @@ function addCase(){
         });
       });
       } else {
-        alert("NULL \(0w0)/")
+        alert("這個是。。。未有輸入喎")
       }
     };
 
