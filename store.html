@@ -105,6 +105,23 @@
       </main>
       <!-- End Top Card -->
 
+      <!-- Search Card -->
+      <main class="demo-cards mdl-color--grey-100 ">
+        <div class="mdl-grid demo-content">
+          <div class="demo-charts mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+              <div class="mdui-container">
+                <div class="mdui-row mdui-row-gapless">
+                  <div class="mdui-col-xs-1"><button class="mdui-textfield-icon mdui-btn mdui-btn-icon" id="search_btn" name="search_btn" onclick="search()";><i class="mdui-icon material-icons">search</i></button></div>
+                  <div class="mdui-col-xs-10"><input class="mdui-textfield-input" type="text" id="search_text" name="search_text" placeholder="Search"/></div>
+                  <div class="mdui-col-xs-1"><button class="mdui-textfield-close mdui-btn mdui-btn-icon" id="search_delebtn" name="search_delebtn" onclick="clean_search()"><i class="mdui-icon material-icons">close</i></button></div>
+                </div>
+              </div>
+          </div>
+          
+        </div>
+      </main>
+      <!-- End Search Card -->
+
 
       <!-- Item List -->
       <main class="demo-cards mdl-color--grey-100 ">
@@ -518,6 +535,36 @@ function addCase(){
         });
       });
       ReadCaseList();
+    }
+
+    function search(){
+      var inputsearch = document.getElementById("search_text").value;
+      if(inputsearch.length > 0){
+      var ref = db.collection("Store").where("uid","==",inputsearch);
+      ref.onSnapshot(querySnapshot => {
+        var html;
+        querySnapshot.forEach(doc => {
+          console.log(doc);
+          html = html + '<tr><td>' + doc.data().uid + '</td><td>' + doc.data().buydate + '</td><td>' + doc.data().renewdate + '</td><td>' + doc.data().detail + '</td><td>' + doc.data().state + '</td>';
+          html = html + '<td>' + '<button id="' + doc.data().uid + '" name="' + doc.data().uid +  '" data-buydate="' + doc.data().buydate + '" data-renewdate="' + doc.data().renewdate + '" data-detail="' + doc.data().detail + '" data-state="' + doc.data().state + '"class=" mdui-icon material-icons mdui-btn mdui-btn-raised mdui-ripple" onclick="ShowDeleteAlert(this)");">&#xe3c9;</button>' + '</td></tr>';
+        });
+        console.log("ReadCaseList:" + html);
+        document.getElementById("itemList").innerHTML = html;
+        mdui.mutation();
+      });
+      } else {
+        ReadCaseList();
+      }
+    }
+
+    function clean_search(){
+      var inputsearch = document.getElementById("search_text").value;
+      if(inputsearch.length > 0){
+        document.getElementById("search_text").value = "";
+        ReadCaseList();
+      } else {
+        ReadCaseList();
+      }
     }
 
   </script>
