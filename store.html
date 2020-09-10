@@ -133,7 +133,7 @@
                 <tr>
                   <th>ID</th>
                   <th>購買日期</th>
-                  <th>維修日期</th>
+                  <th>最近維修日期</th>
                   <th>內容</th>
                   <th>狀態</th>
                   <th>編輯</th>
@@ -174,7 +174,7 @@
             </div>
             <div class="mdui-textfield mdui-textfield-floating-label">
               <label class="mdui-textfield-label">內容</label>
-              <textarea class="mdui-textfield-input" name="detail" id="detail">處理器: &#13;主機板: &#13;記憶體: &#13;儲存設備: &#13;顯示咭: &#13; </textarea>
+              <textarea class="mdui-textfield-input" name="detail" id="detail">使用者: &#13;處理器: &#13;主機板: &#13;記憶體: &#13;儲存設備: &#13;顯示咭: &#13;備註: &#13;過去維修日期: </textarea>
             </div>
           
             <div class="mdui-row-xs-1">
@@ -220,7 +220,7 @@
           <div class="mdui-dialog-content" name="ShowDeleteAlertText" id="ShowDeleteAlertText"></div>
           <div class="mdui-dialog-actions">
             <button id="AlertEdit" name=" " class="mdui-btn mdui-ripple" onclick="EditItem(this)" mdui-dialog-confirm>修改</button>
-            <button id="AlertDelete" name=" " class="mdui-btn mdui-ripple" onclick="DeleteItem(this)" mdui-dialog-confirm>刪除</button>
+            <button id="AlertDelete" name=" " class="mdui-btn mdui-ripple" style="float: left"onclick="DeleteItem(this)" mdui-dialog-confirm>刪除</button>
             <button class="mdui-btn mdui-ripple" mdui-dialog-cancel>取消</button>
           </div>
         </div>
@@ -234,7 +234,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="jquery.table2excel.js"></script>
-    <script src="quagga.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.7.0/firebase-auth.js"></script>
@@ -326,13 +325,20 @@ function ShowDeleteAlert(myObj){
   html = "你選擇了【 ID : " + myObj.id + "】;  請按修改或刪除，也可以按取消退出";
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">ID</label><input class="mdui-textfield-input" type="text" name="edit_uid" id="edit_uid" value='+myObj.id+' disabled="disabled"></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">購買日期</label><input class="mdui-textfield-input" type="date" name="edit_buydate" id="edit_buydate" value='+article.dataset.buydate+'></div>';
-  html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">維修日期</label><input class="mdui-textfield-input" type="date" name="edit_renewdate" id="edit_renewdate" value='+article.dataset.renewdate+'></div>';
+  html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">最近維修日期</label><input class="mdui-textfield-input" type="date" name="edit_renewdate" id="edit_renewdate" onchange="handler(event)" value='+article.dataset.renewdate+'></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">內容</label><textarea class="mdui-textfield-input" name="edit_detail" id="edit_detail">'+article.dataset.detail+'</textarea></div>';
   html = html + '<div class="mdui-textfield"><label class="mdui-textfield-label">狀態</label><input class="mdui-textfield-input" type="text" name="edit_state" id="edit_state" value='+article.dataset.state+'></div>';
 
   document.getElementById("ShowDeleteAlertText").innerHTML = html;
   document.getElementById("AlertDelete").setAttribute("name", myObj.name);
   instDelete.open();
+}
+
+// method for RewUpdateInput  
+function handler(e){
+  var getRenew = document.getElementById("edit_renewdate").value;
+  var getDetail = document.getElementById("edit_detail").value;
+  document.getElementById("edit_detail").value = getDetail + " " + getRenew;
 }
 
 // method for Open About AlertBox 
@@ -483,9 +489,12 @@ function addCase(){
 
     // ShowDeleteAlertButton_Functiom 刪除項目
     function DeleteItem(myObj){
-      var db = firebase.firestore();
-      let Ref = db.collection("Store").doc(myObj.name)
-      Ref.delete().then(function() {
+      var txt;
+      var r = confirm("確定刪除? 放棄也是一種選擇");
+      if (r == true) {
+        var db = firebase.firestore();
+        let Ref = db.collection("Store").doc(myObj.name)
+        Ref.delete().then(function() {
         console.log('Document successfully deleted!');
         mdui.snackbar({
            message: '庫存刪除成功',
@@ -501,6 +510,9 @@ function addCase(){
       });
     })
       ReadCaseList();
+      } else {
+        //alert("放棄也是一種選擇");
+      }
     }
 
     // Edit_Functiom 修改項目
