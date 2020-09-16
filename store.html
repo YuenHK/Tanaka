@@ -112,7 +112,7 @@
               <div class="mdui-container">
                 <div class="mdui-row mdui-row-gapless">
                   <div class="mdui-col-xs-1"><button class="mdui-textfield-icon mdui-btn mdui-btn-icon" id="search_btn" name="search_btn" onclick="search()";><i class="mdui-icon material-icons">search</i></button></div>
-                  <div class="mdui-col-xs-9"><input class="mdui-textfield-input" type="text" id="search_text" name="search_text" placeholder="Search"/></div>
+                  <div class="mdui-col-xs-9"><input class="mdui-textfield-input" type="text" id="search_text" name="search_text" placeholder="Search" onchange="checkInput()" onkeypress="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();"/></div>
                   <div class="mdui-col-xs-1"><button class="mdui-textfield-close mdui-btn mdui-btn-icon" id="search_delebtn" name="search_delebtn" onclick="clean_search()"><i class="mdui-icon material-icons">close</i></button></div>
                   <div class="mdui-col-xs-1"><button class="mdui-textfield-icon mdui-btn mdui-btn-icon" id="photo_btn" name="photo_btn" onclick="takephoto()";><i class="mdui-icon material-icons">photo_camera</i></button></div>
                 </div>
@@ -582,6 +582,14 @@ function addCase(){
 
     function takephoto(){
      alert("開發中");
+    }
+
+    function checkInput(){
+      var inputsearch = document.getElementById("search_text").value;
+      if(inputsearch.length == 13){
+        search();
+        document.getElementById("search_text").value = "";
+      }
     }
 
   </script>
