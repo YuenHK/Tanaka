@@ -2,7 +2,7 @@
 
 [Tanaka](https://yuenhk.github.io/Tanaka)(日文音譯：田中)是一個維修記錄工具，用於回報和管理組織內一切維修項目。
 
-### 功能
+## 功能
 
 Tanaka分為使用者和管理員兩種權限，功能上各有不同。
 
@@ -23,7 +23,7 @@ Tanaka分為使用者和管理員兩種權限，功能上各有不同。
 
 ```
 
-### 技術細節
+## 技術細節
 
 Cloud Firestore [Firebase](https://firebase.google.com/)   
 Material design [Material Design Lite](https://getmdl.io/) [MDUI](https://github.com/zdhxiong/mdui)  
