@@ -2,6 +2,10 @@
 
 [Tanaka](https://yuenhk.github.io/Tanaka)(日文音譯：田中)是一個維修記錄工具，用於回報和管理組織內一切維修項目。
 
+<figure class="video_container">
+  <iframe src="https://youtu.be/sC49RAow340" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
 ## 功能
 
 Tanaka分為使用者和管理員兩種權限，功能上各有不同。
